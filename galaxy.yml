@@ -1,0 +1,17 @@
+repository: "https://www.github.com/si9r-org/ansible-collection-general"
+
+namespace: "si9r"
+name: "general"
+version: "0.1.0"
+
+tags:
+  - sops
+
+readme: "README.md"
+description: "Ansible Collection for General Purpose Roles and Plugins by si9r.org"
+
+license:
+  - "MIT"
+
+authors:
+  - "Rune Rønneseth <rune@si9r.org>"

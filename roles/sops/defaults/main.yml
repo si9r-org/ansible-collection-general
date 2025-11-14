@@ -1,0 +1,12 @@
+# defaults/main.yml
+---
+# SOPS settings
+sops_role_version: "3.11.0"
+sops_role_folder: /ops/sops
+sops_role_cleanup: false
+
+# AGE settings
+sops_role_age_version: "1.2.1"
+sops_role_age_folder: /ops/age
+sops_role_age_install: true
+sops_role_age_cleanup: false

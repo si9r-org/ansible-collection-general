@@ -1,0 +1,26 @@
+the_meaning_of_life:
+  secret: ENC[AES256_GCM,data:Ulo=,iv:kvfBL4pvf2YuZVah4GrID9M35hsoCAA2J+ZoGrue0vw=,tag:EZYXa2qYELd4U49HGu0RjA==,type:int]
+sops:
+  age:
+    - recipient: age1xjgz2e67wmv7ly0w9947tdd5tjjac8eu493c5rpvzgxt7dhzhqes5m7wvc
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBldTVGRG9vbFBMYlBEWUpT
+        bDcwSlQ5UzlWc0tEQjhJWjNWUWJqeWx3SWc4CjVnS3ZGU3RsNks2Y2xHbWNnc2RE
+        QjZHck1jYTdXdTc2NUxFamQrVEZBTlEKLS0tIEYyb1hpS2JpcGdLcjVTOFhEMnJD
+        dHVCUEVkYVNqSXJ1Z0VqZ3JxWnZMNVkKbqtcmAsQQi9Wx/IuThRxytZ4aC2WmKRL
+        YWK/0Bru7NRtbbaHHZLV/baK23uWtuoDUob2SdhSTL8yGAEQAUac3w==
+        -----END AGE ENCRYPTED FILE-----
+    - recipient: age1ayxv59zvwgf5nq74kyxy2rvlkeg4ahs20yj59lymtk3fpjcpce4qqplt4m
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBRL3pWNmdZRU9icWp3aXJ0
+        a2NCY3A5TEF5U3pSaGY4VkxvUHkySTFEWFhFCjhXTmpyWTIxdTErN1FhdkhLc2NN
+        NkJma0kwM1A4blJha2hNTmMxQ3hZTXcKLS0tIG11dUZOdlBWOU1IR2laQ0pLSUZn
+        NlZNSmcxZ2djQ3MwbTFUc0YrdGQ2VU0KlrRWa+OU3yux813BOobRbLhxXCKctcMx
+        4JrFn9/zkZJNFQ2KdM0fZXEj4nhnX6Yqa0hkP1IMv9xbAGHSP2Q9wA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-11-14T00:52:04Z"
+  mac: ENC[AES256_GCM,data:2SggHQQ8OYjSzx8Mfycl2Iv5lpqgth339BfVzrxULtzAxhNi5zQ1E8eOwyuoOWUi2mJ7WyJiJ0XjVaFaaKSqnFCkpOvgdG+4fnd+e6y6tJpNvXaAxM4+nyPnkG26lcdouicqJvqcK7Q1Ur8p5iJDwdXRwMTigNNxQxxoeNxxY+0=,iv:w7VP3OANYZyACu1lcWIuCxkj8odVFZTrtoEJVSbzJls=,tag:tZ5UCpeSGzfTa9OkuvbzBw==,type:str]
+  encrypted_regex: ^(secret)$
+  version: 3.11.0

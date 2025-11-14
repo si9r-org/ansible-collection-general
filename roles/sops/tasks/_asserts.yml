@@ -1,0 +1,14 @@
+-
+  name: Set calculated facts
+  ansible.builtin.set_fact:
+    arch: "{{ _arch_map.get(ansible_facts.get('architecture'), ansible_facts.get('architecture', 'amd64')) }}"
+    system: "{{ ansible_facts.get('system', 'linux') | lower }}"
+-
+  name: Assert Variables
+  ansible.builtin.assert:
+    that:
+      - arch is defined
+      - sops_role_version is defined
+      - sops_role_age_version is defined
+    fail_msg: "Variable not properly defined."
+    success_msg: "Variable properly defined."

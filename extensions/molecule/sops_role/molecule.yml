@@ -1,0 +1,35 @@
+---
+ansible:
+  cfg:
+    defaults:
+      deprecation_warnings: false
+  executor:
+    args:
+      ansible_playbook:
+        - --inventory=inventory/
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml
+
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - destroy
+  cleanup_sequence:
+    - destroy
+    - cleanup
+
+provisioner:
+  name: ansible
+  playbooks: 
+    create: create.yml
+    converge: converge.yml
+    destroy: destroy.yml
+    cleanup: cleanup.yml
+
+# Share default scenario
+shared_state: false

@@ -1,0 +1,6 @@
+**/.cache/*
+
+.credentials
+.decrypted~*
+*.secret.*
+*.decrypted.*

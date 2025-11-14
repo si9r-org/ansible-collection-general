@@ -1,0 +1,33 @@
+- name: Converge
+  hosts: molecule
+
+  gather_facts: true
+  gather_subset:
+    - '!all'
+    - 'min'
+
+  roles:
+    - role: ./../../../roles/sops
+
+  tasks:
+    - name: Verify SOPS is installed
+      become: false
+      ansible.builtin.command: sops --version --check-for-updates
+      register: sops_version
+      changed_when: false
+
+    - name: Display SOPS version
+      become: false
+      ansible.builtin.debug:
+        msg: "SOPS version: {{ sops_version.stdout }}"
+
+    - name: Verify AGE is installed
+      become: false
+      ansible.builtin.command: age --version
+      register: age_version
+      changed_when: false
+
+    - name: Display AGE version
+      become: false
+      ansible.builtin.debug:
+        msg: "AGE version: {{ age_version.stdout }}"

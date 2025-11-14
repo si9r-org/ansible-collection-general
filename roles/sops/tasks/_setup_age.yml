@@ -1,0 +1,75 @@
+# Actually Good Encryption (age)
+# https://github.com/FiloSottile/age
+---
+-
+  name: Create directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}"
+    state: directory
+    mode: '0755'    
+-
+  name: Check if archive exists
+  become: false
+  ansible.builtin.stat:
+    path: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}/age.tar.gz"
+  register: age_archive_stat
+-
+  name: Download archive
+  become: true
+  when: not age_archive_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/FiloSottile/age/releases/download/v{{ sops_role_age_version }}/age-v{{ sops_role_age_version }}-{{ system }}-{{ arch }}.tar.gz"
+    dest: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}/age.tar.gz"
+    mode: '0755'
+  register: age_download
+  until: age_download is success
+  retries: 3
+  delay: 10
+-
+  name: Check if binary file exists
+  become: false
+  ansible.builtin.stat:
+    path: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}/{{ item }}"
+  register: age_bin_stat
+  loop:
+    - age
+    - age-keygen
+-
+  name: Extract binary files
+  become: true
+  when: not (age_bin_stat.results | map(attribute='stat.exists') | min)
+  ansible.builtin.unarchive:
+    src: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}/age.tar.gz"
+    dest: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}"
+    remote_src: true
+    extra_opts: ['--strip-components=1']
+-
+  name: Symlink binary
+  become: true
+  ansible.builtin.file:
+    src: "{{ sops_role_age_folder }}/{{ sops_role_age_version }}/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    state: link
+  loop:
+    - age
+    - age-keygen
+-
+  name: Cleanup Other Versions
+  when: sops_role_age_cleanup
+  block:
+    - 
+      name: Get Other Installations
+      become: false
+      ansible.builtin.find:
+        paths: "{{ sops_role_age_folder }}"
+        excludes: "{{ sops_role_age_version }}"
+        file_type: directory
+      register: age_files_found
+    -
+      name: Delete Installation Folders
+      become: true
+      ansible.builtin.file:
+        state: absent
+        path: "{{ item.path }}"
+      loop: "{{ age_files_found.files }}"

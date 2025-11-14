@@ -1,0 +1,19 @@
+# SOPS configuration
+---
+# Global Config
+stores:
+  json:
+    indent: 2
+  yaml:
+    indent: 2
+
+creation_rules:
+  - path_regex: 'meaning-of-life\.yml$'
+    encrypted_regex: "^(secret)$"
+    age:
+      - 'age1xjgz2e67wmv7ly0w9947tdd5tjjac8eu493c5rpvzgxt7dhzhqes5m7wvc' # XPS 13
+      - 'age1ayxv59zvwgf5nq74kyxy2rvlkeg4ahs20yj59lymtk3fpjcpce4qqplt4m' # Lenovo
+
+  - age:
+      - 'age1xjgz2e67wmv7ly0w9947tdd5tjjac8eu493c5rpvzgxt7dhzhqes5m7wvc' # XPS 13
+      - 'age1ayxv59zvwgf5nq74kyxy2rvlkeg4ahs20yj59lymtk3fpjcpce4qqplt4m' # Lenovo

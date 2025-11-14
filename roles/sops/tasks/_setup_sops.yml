@@ -1,0 +1,51 @@
+-
+  name: Install required packages
+  become: true
+  ansible.builtin.package:
+    name: gpg
+    state: present
+-
+  name: Create directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ sops_role_folder }}/{{ sops_role_version }}"
+    state: directory
+    mode: '0755'    
+-
+  name: Download binary
+  become: true
+  ansible.builtin.get_url:
+    url: "https://github.com/mozilla/sops/releases/download/v{{ sops_role_version }}/sops-v{{ sops_role_version }}.{{ system }}.{{ arch }}"
+    checksum: "sha256:https://github.com/getsops/sops/releases/download/v{{ sops_role_version }}/sops-v{{ sops_role_version }}.checksums.txt"
+    dest: "{{ sops_role_folder }}/{{ sops_role_version }}/sops"
+    mode: '0755'
+  register: sops_download
+  until: sops_download is success
+  retries: 3
+  delay: 10
+-
+  name: Symlink binary (install)
+  become: true
+  ansible.builtin.file:
+    src: "{{ sops_download.dest }}"
+    dest: /usr/local/bin/sops
+    state: link
+-
+  name: Cleanup Other Version
+  when: sops_role_cleanup
+  block:
+    - 
+      name: Get installations
+      become: false
+      ansible.builtin.find:
+        paths: "{{ sops_role_folder }}"
+        excludes: "{{ sops_role_version }}"
+        file_type: directory
+      register: sops_files_found
+    -
+      name: Delete Installation Folders
+      become: true
+      ansible.builtin.file:
+        state: absent
+        path: "{{ item.path }}"
+      loop: "{{ sops_files_found.files }}"

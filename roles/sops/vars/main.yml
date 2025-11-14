@@ -1,0 +1,5 @@
+# Architecture map for 'ansible_facts' lookup
+_arch_map:
+  x86_64: "amd64"
+  aarch64: "arm64"
+#architecture: "{{ _arch_map.get(ansible_facts.get('architecture'), ansible_facts.get('architecture', 'amd64')) }}"

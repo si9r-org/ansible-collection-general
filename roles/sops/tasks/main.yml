@@ -1,0 +1,11 @@
+# tasks/main.yml
+---
+-
+  name: Asserts
+  ansible.builtin.import_tasks: _asserts.yml
+-
+  name: Secure Operations (SOPS)
+  ansible.builtin.import_tasks: _setup_sops.yml
+-
+  name: Actually Great Encryptor (AGE)
+  ansible.builtin.import_tasks: _setup_age.yml
